@@ -567,6 +567,15 @@
            (to-sql (second table))))
     (str "INSERT INTO " (to-sql table))))
 
+(defmethod format-clause :replace-into [[_ table] _]
+  (if (and (sequential? table) (sequential? (first table)))
+    (str "REPLACE INTO "
+         (to-sql (ffirst table))
+         " (" (comma-join (map to-sql (second (first table)))) ") "
+         (binding [*subquery?* false]
+           (to-sql (second table))))
+    (str "REPLACE INTO " (to-sql table))))
+
 (defmethod format-clause :columns [[_ fields] _]
   (str "(" (comma-join (map to-sql fields)) ")"))
 
