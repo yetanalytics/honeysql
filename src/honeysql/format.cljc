@@ -204,6 +204,7 @@
    :union-all 45
    :select 50
    :insert-into 60
+   :replace-into 65
    :update 70
    :delete 75
    :delete-from 80
